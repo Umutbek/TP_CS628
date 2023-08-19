@@ -5,28 +5,30 @@ const morgan = require("morgan");
 const bodyParser = require("body-parser");
 require("dotenv").config();
 var cors = require('cors');
+
+
+
+
+// import routes
+const authRoutes = require('./routes/authRoutes');
+const userRoutes = require('./routes/userRoutes');
+const jobTypeRoute = require('./routes/jobsTypeRoute');
+const jobRoute = require('./routes/jobRoute');
+
 const cookieParser = require("cookie-parser");
 const errorHandler = require("./middleware/error");
 
-//import routes
-const authRoutes = require('./routes/authRoutes');
-//database 
-//const mongoose = require('mongoose');
-
+//database connection
 mongoose.connect(process.env.DATABASE, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true,
     useFindAndModify: false
-}).then(() => {
-    console.log("DB Connected");
-}).catch((err) => {
-    console.log(err);
-});
+})
+    .then(() => console.log("DB connected"))
+    .catch((err) => console.log(err));
 
-
-
-//Middleware
+//MIDDLEWARE
 app.use(morgan('dev'));
 app.use(bodyParser.json({ limit: "5mb" }));
 app.use(bodyParser.urlencoded({
@@ -37,20 +39,20 @@ app.use(cookieParser());
 app.use(cors());
 
 
-//routes Middleware
-//app.get('/', (req, res) => {
-//    res.send("Hello from NodeJs");
+//ROUTES MIDDLEWARE
+// app.get('/', (req, res) => {
+//     res.send("Hello from Node Js");
 // })
 app.use('/api', authRoutes);
+app.use('/api', userRoutes);
+app.use('/api', jobTypeRoute);
+app.use('/api', jobRoute);
 
-//error middleware
-app.use(errorHandler)
+// error middleware
+app.use(errorHandler);
 
 //port
-//const express = require('express');
-//const app = express();
-
-const port = process.env.PORT || 8000;
+const port = process.env.PORT || 9000
 
 app.listen(port, () => {
     console.log(`Server running on port ${port}`);
