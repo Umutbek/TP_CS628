@@ -28,6 +28,7 @@ mongoose.connect(process.env.DATABASE, {
     .then(() => console.log("DB connected"))
     .catch((err) => console.log(err));
 
+
 //MIDDLEWARE
 app.use(morgan('dev'));
 app.use(bodyParser.json({ limit: "5mb" }));

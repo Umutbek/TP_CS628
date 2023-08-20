@@ -4,6 +4,7 @@ import Home from './pages/Home';
 import NotFound from './pages/NotFound';
 import { CssBaseline, ThemeProvider } from '@mui/material';
 import { theme } from './theme';
+import SingleJob from "./pages/SingleJob";
 
 
 const App = () => {
@@ -17,6 +18,7 @@ const App = () => {
                         <Route path='/' element={<Home />} />
                         <Route path='/search/location/:location' element={<Home />} />
                         <Route path='*' element={<NotFound />} />
+                        <Route path='/job/:id' element={<SingleJob />} />
                     </Routes>
                 </BrowserRouter>
             </ThemeProvider>
