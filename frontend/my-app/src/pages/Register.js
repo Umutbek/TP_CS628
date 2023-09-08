@@ -3,11 +3,17 @@ import Footer from '../components/Footer'
 import Navbar from '../components/Navbar'
 import LockOpenIcon from '@mui/icons-material/LockOpen';
 import TextField from '@mui/material/TextField';
+import { FormControl, InputLabel, Input } from '@mui/material';
+
+
 import Button from '@mui/material/Button';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import { useDispatch } from 'react-redux'
 import { userSignUpAction } from '../redux/actions/userAction'
+import {Link} from "react-router-dom";
+import React from "react";
+
 
 
 const validationSchema = yup.object({
@@ -26,7 +32,7 @@ const validationSchema = yup.object({
     password: yup
         .string('Enter your password')
         .min(8, 'Password should be of minimum 8 characters length')
-        .required('Password is required'),
+        .required('Password is required')
 });
 
 
@@ -155,7 +161,39 @@ const Register = () => {
                             helperText={formik.touched.password && formik.errors.password}
                         />
 
+
+
+                        <FormControl fullWidth sx={{ mb: 3 }}>
+                            <InputLabel htmlFor="file" shrink>
+                                Upload Resume
+                            </InputLabel>
+                            <Input
+                                sx={{
+                                    "& .MuiInputBase-root": {
+                                        color: 'text.secondary'
+                                    },
+                                    fieldset: { borderColor: "rgb(231, 235, 240)" }
+                                }}
+                                id="file"
+                                name="file"
+                                type="file"
+                                value={formik.values.file}
+                                onChange={formik.handleChange}
+                                onBlur={formik.handleBlur}
+                                error={formik.touched.file && Boolean(formik.errors.file)}
+                            />
+                            {formik.touched.file && Boolean(formik.errors.file) &&
+                                <div style={{ color: 'red' }}>
+                                    {formik.errors.file}
+                                </div>
+                            }
+                        </FormControl>
+
+
+
                         <Button fullWidth variant="contained" type='submit' >Register</Button>
+                        <p>Back to <Link to="/login">Login</Link></p>
+
                     </Box>
                 </Box>
             </Box>

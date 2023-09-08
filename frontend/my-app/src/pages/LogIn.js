@@ -9,7 +9,8 @@ import { useFormik } from 'formik';
 import * as yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux'
 import { userSignInAction } from '../redux/actions/userAction'
-import { useNavigate } from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
+
 
 const validationSchema = yup.object({
     email: yup
@@ -116,6 +117,7 @@ const LogIn = () => {
                         />
 
                         <Button fullWidth variant="contained" type='submit' >Log In</Button>
+                        <p>Don't have an account? <Link to="/register">Register</Link></p>
                     </Box>
                 </Box>
             </Box>
